@@ -15,6 +15,7 @@ $("document").ready(function(){
 
 
 const googleAuth = document.getElementById("googleAuth");
+const signout = document.getElementById("signoutButton");
 
 const budgetAmount = document.getElementById("budgetAmount");
 const expenseAmount = document.getElementById("expenseAmount");	
@@ -32,7 +33,6 @@ var totalExpenseAmount = 0;
 var totalBalanceAmount = 0;
 
 var provider = new firebase.auth.GoogleAuthProvider();
-firebase.auth().signInWithRedirect(provider);
  //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++	
 	initApp();
  //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -89,12 +89,11 @@ firebase.auth().signInWithRedirect(provider);
 		});	
 
     
-	//+++++++++++++++ budgetButton ++++++++++++++++++++++    
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++		
+  
+//+++++++++++++++++++Login with Google++++++++++++++++++++++++++++++++++++++++++++++++		
 	if(googleAuth){
 		 googleAuth.addEventListener('click', e=>{
-			//firebase.auth().signInWithRedirect(provider);
-			//firebase.auth().getRedirectResult().then(function(result) {
+
 			firebase.auth().signInWithPopup(provider).then(function(result) {	 
 			// This gives you a Google Access Token. You can use it to access the Google API.
   			var token = result.credential.accessToken;
@@ -114,9 +113,21 @@ firebase.auth().signInWithRedirect(provider);
 		 });
 		
 		}
-	
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		
+
+//+++++++++++++++++++++++++++Logout++++++++++++++++++++++++++++++++++++++++++++++++				
+		if(signout){
+             signout.addEventListener('click', e=>{
+		  
+			 promise = firebase.auth().signOut().then(function(){
+				if(confirm("Do you wish to leave?")){
+				 window.location.href = "index.html";
+			 }	
+					 });
+		      promise.catch(e => 
+	                console.log(e.message))
+			});
+		 }
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++	
 		
 
     	
