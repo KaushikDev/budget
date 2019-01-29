@@ -13,28 +13,54 @@
  </head>
  <body>
     <style>
-	body{
+body{
 background-color:black;
-
-color:white;
+color: white;
+font-family: 'Cinzel', serif;
 }
 
+#header{
+width:auto;
+height: 40%;
+}
+
+#googleRow{
+width:auto;
+height: 50%;
+}
+
+
+#footer{
+width:auto;
+height: 10%;
+}
 
 .btn{
 border-radius: 50%;
 width: 150px;
 height: 150px;
-font-size:100px;
-color : red;
-font-style:bold;
-margin:auto;
-display:block;
-top:50%;
+font-size:60px;
+background-color:red;
+
 
 }
 	</style>
-	<div class="container text-center">
-	<button class="btn btn-lg btn-secondary btn-action" id="googleAuth">G</button>
+	<div class="container">
+	
+		<div id="header" class="row text-center">
+			<h1>Budget Manager</h1>
+		</div>
+	
+		<div id="googleRow" class="row text-center">
+			<button class="btn btn-lg btn-secondary btn-action" id="googleAuth">G</button>
+			<p>Please sign in using Google</p>
+		</div>
+	
+				
+		<div id="footer" class="row text-center">
+			<a href="https://kaushikdev.github.io/portfolio/" target="_blank"><i class="fa fa-copyright" aria-hidden="true"></i>KaushikCodeArts 2019</a>
+		</div>
+	
 	</div>
 	<script src="logic.js"></script>
 
