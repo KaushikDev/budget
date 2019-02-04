@@ -13,21 +13,17 @@
 //===============================================================================================
 
 const signout = document.getElementById("signoutButton");
-
+const cancelBudgetButton = document.getElementById("cancelBudgetButton");
+const cancelExpenseButton = document.getElementById("cancelExpenseButton");
 
 const budgetTitleBox = document.getElementById("budgetTitleBox");
 const budgetAmountBox = document.getElementById("budgetAmountBox");
 const saveBudgetButton = document.getElementById("saveBudgetButton");
 
 
-const budgetAmount = document.getElementById("budgetAmount");
-const expenseAmount = document.getElementById("expenseAmount");	
-const balanceAmount = document.getElementById("balanceAmount");	
-const budgetButton = document.getElementById("budgetButton");
-		
-const expenseNameBox = document.getElementById("expenseNameBox");
+const expenseTitleBox = document.getElementById("expenseTitleBox");
 const expenseAmountBox = document.getElementById("expenseAmountBox");
-const expenseAddButton = document.getElementById("expenseAddButton");
+const saveExpenseButton = document.getElementById("saveExpenseButton");
 
 const storageRef = firebase.storage().ref();
 var databaseRef = firebase.database().ref();
@@ -51,73 +47,9 @@ const userDisplayName = document.getElementById("userDisplayName");
 var provider = new firebase.auth.GoogleAuthProvider();
  //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++	
 
- //++++++++++++++++++++Retrieving Budgets++++++++++++++++++++++++++++++++++++++++++
-				
-				firebaseRetrieveBudgetRef = databaseRef.child("BudgetManager/users/"+uid);
-								
-				
-				firebaseRetrieveBudgetRef.on("child_added", snapshotBudget =>{
-				retrievedBudgetData = snapshotBudget.val();
-				
-							console.log("retrieved budget data is : "+retrievedBudgetData);
 		
-					$("#budgetList").append("<div style='border-style:solid;border-color:white;border-width:1px;border-radius:5px;margin-bottom:3px;'><div class='row'>	<div class='col-xs-12'><p>Title: "+retrievedBudgetData.BudgetTitle+"</p><p>Amount: "+retrievedBudgetData.BudgetAmount+"</p><p>Entry Time: "+retrievedBudgetData.Timestamp+"</p></div></div><div class='row'><div class='col-xs-12'><i style='margin:5px 30px;font-size:25px;color:red;' class='fa fa-trash' aria-hidden='true'></i><i style='margin:5px 30px;font-size:25px;' class='fa fa-pencil' aria-hidden='true'></i></div></div></div>");
-					});
-
-/* SHOULD USE IT WHEN REDIRECTION WORKS SUCCESSFULY ON AUTHSTATECHANGED. IE NO PAGE RELOADING.
-    //+++++++++++Retrieving Expenses++++++++++++++++++++++++++++++++
 					
-				firebaseRetrieveExpenseRef = databaseRef.child("ExpenseDashboard");
-								
-				
-				firebaseRetrieveExpenseRef.on("child_added", snapshotExpense =>{
-				retrievedExpenseData = snapshotExpense.val();
-				
-							
-				totalExpenseAmount = totalExpenseAmount + parseInt(retrievedExpenseData.ExpenseAmount);
-				expenseAmount.innerHTML = '<i class="fa fa-inr" aria-hidden="true"></i>' + " " + totalExpenseAmount;
-				
-				console.log("total budgetamount is : "+ parseInt(budgetAmount.value));
-				
-				totalBalanceAmount = parseInt(budgetAmount.value) - totalExpenseAmount;
-				balanceAmount.innerHTML = '<i class="fa fa-inr" aria-hidden="true"></i>' + " " + totalBalanceAmount;
-			
-					$("#expenseList").append("<div style='border-style:solid;border-color:white;border-width:1px;border-radius:5px;margin-bottom:3px;'><div class='row'>	<div class='col-xs-12'><p>Amount: "+retrievedExpenseData.ExpenseAmount+"</p><p>Expense: "+retrievedExpenseData.ExpenseTitle+"</p><p>Entry Time: "+retrievedExpenseData.Timestamp+"</p></div></div><div class='row'><div class='col-xs-12'><i style='margin:5px 30px;font-size:25px;color:red;' class='fa fa-trash' aria-hidden='true'></i><i style='margin:5px 30px;font-size:25px;' class='fa fa-pencil' aria-hidden='true'></i></div></div></div>");	
-					});
-					
-*/
-					
-				
-					
-	//+++++++++++Storing New Expense+++++++++++++++++++++++++++
-		$("#expenseAddButton").on("click", function(){
-			var dtOfExpense = new Date();
-			var timeStampExpense = dtOfExpense.toLocaleString();
-			
-			if(budgetAmount.value=="0"){
-				alert("Please add your 'Budget Amount' from Budget icon");
-			}
-			else if(expenseNameBox.value==""){
-				alert("Please mention 'Expense Title'");
-			}
-			else if(expenseAmountBox.value==""){
-				alert("Please mention 'Expense Amount'");
-			}
-			else{
-			  firebaseStoreExpenseRef = databaseRef.child("ExpenseDashboard/");
-			  firebaseStoreExpenseRef.push({ExpenseTitle:expenseNameBox.value, ExpenseAmount:expenseAmountBox.value, Timestamp:timeStampExpense});
-			  
-			   expenseNameBox.value="";
-			   expenseAmountBox.value="";   
-			  
-			  }
-			
-		});	
-
-    
-  
-
-//+++++++++++++++++++++++++++Logout++++++++++++++++++++++++++++++++++++++++++++++++				
+//+++++++++++++++++++++++++++Logout from the application++++++++++++++++++++++++++++++++++++++++++++++++				
 		if(signout){
              signout.addEventListener('click', e=>{
 		  
@@ -130,7 +62,24 @@ var provider = new firebase.auth.GoogleAuthProvider();
 	                console.log(e.message))
 			});
 		 }
-//+++++++++++++++++++++++++Add budget button+++++++++++++++++++++++++++++++++++++++++++++++++++	
+		 
+//+++++++++++++++++++++++++++Cancelling the addition of budget operation++++++++++++++++++++++++++++++++++++++++++++++++				
+		if(cancelBudgetButton){
+             cancelBudgetButton.addEventListener('click', e=>{
+				
+			budgetTitleBox.value="";
+			   budgetAmountBox.value="";  
+			});
+		 }		 
+//+++++++++++++++++++++++++++Cancelling the addition of expense operation++++++++++++++++++++++++++++++++++++++++++++++++				
+		if(cancelExpenseButton){
+             cancelExpenseButton.addEventListener('click', e=>{
+				
+			expenseTitleBox.value="";
+			   expenseAmountBox.value=""; 
+			});
+		 }		 
+//+++++++++++++++++++++++++Adding budgets +++++++++++++++++++++++++++++++++++++++++++++++++++	
 		if(saveBudgetButton){
              saveBudgetButton.addEventListener('click', e=>{
 			var budgetAddDate = new Date();
@@ -143,16 +92,45 @@ var provider = new firebase.auth.GoogleAuthProvider();
 				alert("Please mention 'Budget Amount'");
 			}
 			else{
-			  firebaseStoreExpenseRef = databaseRef.child("BudgetManager/users/"+uid);
-			  firebaseStoreExpenseRef.push({BudgetTitle:budgetTitleBox.value, BudgetAmount:budgetAmountBox.value, Timestamp:timeStampBudgetAdd});
+			  firebaseStoreBudgetRef = databaseRef.child("BudgetManager/users/"+uid+"/Budgets/");
+			  firebaseStoreBudgetRef.push({BudgetTitle:budgetTitleBox.value, BudgetAmount:budgetAmountBox.value, BudgetTimestamp:timeStampBudgetAdd});
 			  
 			   budgetTitleBox.value="";
 			   budgetAmountBox.value="";   
-			  
+			   $('#addBudgetModal').modal('hide');
 			  }
 			 
 			});
 		 }
+//+++++++++++++++++++++++++Adding Expenses +++++++++++++++++++++++++++++++++++++++++++++++++++	
+		if(saveExpenseButton){
+             saveExpenseButton.addEventListener('click', e=>{
+			var expenseAddDate = new Date();
+			var timeStampExpenseAdd = expenseAddDate.toLocaleString();
+			
+			if(expenseTitleBox.value==""){
+				alert("Please mention 'Expense Title'");
+			}
+			else if(expenseAmountBox.value==""){
+				alert("Please mention 'Expense Amount'");
+			}
+			else{
+			  firebaseStoreExpenseRef = databaseRef.child("BudgetManager/users/"+uid+"/Budgets/"+expenseID+"/Expenses");
+			  firebaseStoreExpenseRef.push({ExpenseTitle:expenseTitleBox.value, ExpenseAmount:expenseAmountBox.value, ExpenseTimestamp:timeStampExpenseAdd});
+			  
+			   expenseTitleBox.value="";
+			   expenseAmountBox.value="";   
+			  $('#addExpenseModal').modal('hide');
+			  }
+			 
+			});
+		 }
+
+//++++++++++++++++++++++This will happen on click event of a add new expense button++++  
+	storeExpense = function(clickedID){
+		console.log("The clicked expense button's id is : "+clickedID);
+		expenseID = clickedID;
+		}
 //++++++++++++++++++++++++++OnAUthStateChanges on home page++++++++++++++++++++++++++++++++++++++++++++	
 	
 	firebase.auth().onAuthStateChanged(firebaseUser =>{
@@ -177,15 +155,18 @@ var provider = new firebase.auth.GoogleAuthProvider();
 			
 			//-------------Retrieving Budgets---------
 				
-				firebaseRetrieveBudgetRef = databaseRef.child("BudgetManager/users/"+uid);
+				firebaseRetrieveBudgetRef = databaseRef.child("BudgetManager/users/"+uid+"/Budgets");
 								
 				
 				firebaseRetrieveBudgetRef.on("child_added", snapshotBudget =>{
 				retrievedBudgetData = snapshotBudget.val();
-				
-							console.log("retrieved budget data is : "+retrievedBudgetData);
-		
-					$("#budgetList").append("<div class='row'><div class='column'><div class='card'><h3>Budget Title : "+retrievedBudgetData.BudgetTitle+"</h3><h4 class='price'>Budget Amount : <i class='fa fa-inr' id='budget' aria-hidden='true'></i>"+retrievedBudgetData.BudgetAmount+"</h4><h4>Total Expense Till Date : 5000</h4><h4>Total Balance : 2000</h4><h4><button class='btn btn-info'>View Expense History</button></h4><h4><button class='btn btn-primary'>Add New Expense</button></h4></div></div></div>");
+				retrievedBudgetKey = snapshotBudget.key;
+					
+					console.log("retrieved budget data is : "+retrievedBudgetData);
+					console.log("retrieved budget key is : "+retrievedBudgetKey);
+					
+					
+					$("#budgetList").append("<div class='row'><div class='column'><div class='card'><h3>"+retrievedBudgetData.BudgetTitle+"</h3><h5 class='price'>Budget Amount : <i class='fa fa-inr' aria-hidden='true'></i>"+retrievedBudgetData.BudgetAmount+"</h5><h5>Expense Amount : <i class='fa fa-inr' aria-hidden='true'></i>5000</h5><h5>Balance Amount : <i class='fa fa-inr' aria-hidden='true'></i>2000</h5><h5>Budget Date : "+retrievedBudgetData.BudgetTimestamp+"</h5><h5><button class='btn btn-info'>View Expense History</button></h5><h4><button id="+retrievedBudgetKey+" class='btn btn-primary' data-toggle='modal' data-target='#addExpenseModal' onClick='storeExpense(this.id)'>Add New Expense</button></h5></div></div></div>");
 					});
 					
 			//---------------------------------------		

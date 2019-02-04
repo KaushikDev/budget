@@ -26,7 +26,7 @@ font-family: 'Cinzel', serif;
   border-radius: 5px;
    margin: 10 auto;
    float: none;
-   margin-bottom: 10px;
+   margin-bottom: 1px;
   
 }
 
@@ -41,9 +41,10 @@ img {
   border-radius:50%;
 }
 
-h3, h4, h2{
+h3, h4, h2, h5{
 text-align:center;
 }
+
 
 
 #userProfile, #main, #budgetList{
@@ -52,16 +53,23 @@ margin-bottom: 20px;
 
 
 .iSize{
-font-size:50px;
+font-size:40px;
 }
 
 
 #addBudgetButton, #viewHelpButton , #signoutButton{
 background-color:white;
-width:100px;
-height:100px;
+width:60px;
+height:60px;
 border-radius:50%;
+box-shadow: 0 8px 16px 0 rgba(0, 0, 0,0.2);
+transition: 0.3s;
 }
+
+
+
+
+
 
 #addBudgetIcon{
 color: green;
@@ -78,7 +86,7 @@ color: red;
 .card button {
   border: none;
   outline: 0;
-  padding: 5px;
+  padding: 1px;
   color: white;
   text-align: center;
   cursor: pointer;
@@ -89,6 +97,7 @@ color: red;
 
    
    </style>
+   
 	<!-- +++++++++++++++++Add Budget Modal+++++++++++++++++ -->
 <div class="modal fade" id="addBudgetModal" role="dialog">
     <div class="modal-dialog">
@@ -114,7 +123,8 @@ color: red;
 		</div>
 		
         <div class="modal-footer">
-          <button id="saveBudgetButton" class="btn btn-default" data-dismiss="modal">Save</button>
+		<button id="cancelBudgetButton" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button id="saveBudgetButton" class="btn btn-default">Save</button>
         </div> 
 		
       </div>
@@ -175,6 +185,41 @@ color: red;
       
     </div>
   </div>
+  	<!-- +++++++++++++++++Add Expense Modal+++++++++++++++++ -->
+<div class="modal fade" id="addExpenseModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+	  
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Adding New Expense : </h4>
+        </div>
+		
+        <div class="modal-body">
+			<div class="form-group">
+				<label for="expenseTitleBox">Expense Title</label>
+				<input type="text" id="expenseTitleBox"></input>
+			</div>
+
+			<div class="form-group">
+				<label for="expenseAmountBox">Expense Amount</label>
+				<input type="number" id="expenseAmountBox"></input>
+			</div>
+		</div>
+		
+        <div class="modal-footer">
+			<button id="cancelExpenseButton" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button id="saveExpenseButton" class="btn btn-default">Save</button>
+		  
+        </div> 
+		
+      </div>
+      
+    </div>
+  </div>
+  
 <!-- +++++++++++++++++Profile Card+++++++++++++++++-->	
 <div id="userProfile" class="container">
 <div class="card row">
@@ -184,8 +229,12 @@ color: red;
 		<div class="col-xs-12 text-center">
 			<h4 id="userDisplayName"><b></b></h4> 
 		</div>
+
+		
 	</div>
 </div>	
+<!-- +++++++++++++++++++Test Cards+++++++++++++++++++++++++++++--->
+
 <!-- +++++++++++++++++Main Container+++++++++++++++++-->
 
 <div id="main" class="container">
@@ -193,10 +242,13 @@ color: red;
 	<div id="headerBar" class="row text-center">
 		
 		<div class="col-xs-4">
+		
+		
 		<button id="addBudgetButton" class="btn btn-default" data-toggle="modal" data-target="#addBudgetModal">
 				<i class="fa fa-plus iSize" id="addBudgetIcon" aria-hidden="true"></i>
 			</button>
 			<p>ADD NEW BUDGET</p> 
+			
 		</div>
 		
 		<div class="col-xs-4">
