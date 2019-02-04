@@ -166,6 +166,38 @@ var provider = new firebase.auth.GoogleAuthProvider();
 					console.log("retrieved budget key is : "+retrievedBudgetKey);
 					
 					
+					//+++++++++testing expenses under a particular budget
+					
+										numOfExpenses = snapshotBudget.child("Expenses").numChildren();	
+										console.log("The number of children replies has is : "+numOfExpenses);	
+									
+										expensesData = snapshotBudget.child("Expenses");
+										if(expensesData.exists()){
+											var matrix = [];
+											var retrievedExpenses = [];
+											var htmlStr = "";
+											
+										expensesData.forEach(function(snapshotExpense) {
+											retrievedExpensekey = snapshotExpense.key;
+											retrievedExpenseData = snapshotExpense.val();
+											console.log("the key from retrievedExpensekey is " + retrievedExpensekey);
+											console.log("the expense Title from retrievedExpenseData is " + retrievedExpenseData.ExpenseTitle);
+										
+											 matrix.push([retrievedExpenseData.ExpenseTitle, retrievedExpenseData.ExpenseAmount, retrievedExpenseData.ExpenseTimestamp]);
+										 });
+										
+										for(var i=0;i<numOfExpenses;i++){
+												var string = "["+matrix[i][2]+"] "+matrix[i][0]+" replied: \""+matrix[i][1]+"\"";
+												retrievedExpenses.push(string);
+												htmlStr = htmlStr+ "<p style='width:100%;'>"+string+"</p>";
+											}
+											
+											console.log(retrievedExpenses);	
+											console.log(htmlStr);
+										
+										}
+					//++++++++++testing ends for expenses under a particular budget
+					
 					$("#budgetList").append("<div class='row'><div class='column'><div class='card'><h3>"+retrievedBudgetData.BudgetTitle+"</h3><h5 class='price'>Budget Amount : <i class='fa fa-inr' aria-hidden='true'></i>"+retrievedBudgetData.BudgetAmount+"</h5><h5>Expense Amount : <i class='fa fa-inr' aria-hidden='true'></i>5000</h5><h5>Balance Amount : <i class='fa fa-inr' aria-hidden='true'></i>2000</h5><h5>Budget Date : "+retrievedBudgetData.BudgetTimestamp+"</h5><h5><button class='btn btn-info'>View Expense History</button></h5><h4><button id="+retrievedBudgetKey+" class='btn btn-primary' data-toggle='modal' data-target='#addExpenseModal' onClick='storeExpense(this.id)'>Add New Expense</button></h5></div></div></div>");
 					});
 					
