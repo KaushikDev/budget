@@ -68,7 +68,9 @@ transition: 0.3s;
 
 
 
-
+input{
+width:100%;
+}
 
 
 #addBudgetIcon{
@@ -113,12 +115,12 @@ color: red;
         <div class="modal-body">
 			<div class="form-group">
 				<label for="budgetTitleBox">Budget Title</label>
-				<input type="text" id="budgetTitleBox"></input>
+				<input type="text" id="budgetTitleBox" maxlength="15"></input>
 			</div>
 
 			<div class="form-group">
 				<label for="budgetAmountBox">Budget Amount</label>
-				<input type="number" id="budgetAmountBox"></input>
+				<input type="number" id="budgetAmountBox" min="1" max="10000000"></input>
 			</div>
 		</div>
 		
@@ -146,33 +148,18 @@ color: red;
 		
         <div class="modal-body">
 			
-			<div class="form-group">
+			<div>
 				<label for="addingBudget">How to Add Budget</label>
 				<p id="addingBudget">
 				Blah blah blah blah
 				</p>
 			</div>
 			
-			<div class="form-group">
-				<label for="addingexpenses">How to Add Expense</label>
-				<p id="addingexpenses">
-				Blah blah blah blah
-				</p>
-			</div>
 			
-			<div class="form-group">
-				<label for="deletingBudget">How to Delete Budget</label>
-				<p id="deletingBudget">
-				Blah blah blah blah
-				</p>
-			</div>
 			
-			<div class="form-group">
-				<label for="deletingExpense">How to Delete Expense</label>
-				<p id="deletingExpense">
-				Blah blah blah blah
-				</p>
-			</div>
+	
+			
+			
 			
 			
 		</div>
@@ -200,12 +187,12 @@ color: red;
         <div class="modal-body">
 			<div class="form-group">
 				<label for="expenseTitleBox">Expense Title</label>
-				<input type="text" id="expenseTitleBox"></input>
+				<input type="text" id="expenseTitleBox" maxlength="15"></input>
 			</div>
 
 			<div class="form-group">
 				<label for="expenseAmountBox">Expense Amount</label>
-				<input type="number" id="expenseAmountBox"></input>
+				<input type="number" id="expenseAmountBox"  min="1" max="10000000"></input>
 			</div>
 		</div>
 		
