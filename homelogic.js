@@ -20,10 +20,14 @@ const budgetTitleBox = document.getElementById("budgetTitleBox");
 const budgetAmountBox = document.getElementById("budgetAmountBox");
 const saveBudgetButton = document.getElementById("saveBudgetButton");
 
+const noBudgetInfo = document.getElementById("noBudgetInfo"); 
+
 
 const expenseTitleBox = document.getElementById("expenseTitleBox");
 const expenseAmountBox = document.getElementById("expenseAmountBox");
 const saveExpenseButton = document.getElementById("saveExpenseButton");
+
+const noExpenseInfo = document.getElementById("noBudgetInfo"); 
 
 const storageRef = firebase.storage().ref();
 var databaseRef = firebase.database().ref();
@@ -39,6 +43,9 @@ var emailVerified;
 var photoURL;
 var isAnonymous;
 var providerData;
+
+
+var viewExpenseID;
 
 const userDisplayPicture = document.getElementById("userDisplayPicture");
 const userDisplayName = document.getElementById("userDisplayName");
@@ -128,9 +135,15 @@ var provider = new firebase.auth.GoogleAuthProvider();
 
 //++++++++++++++++++++++This will happen on click event of a add new expense button++++  
 	storeExpense = function(clickedID){
-		console.log("The clicked expense button's id is : "+clickedID);
+		console.log("The clicked add new expense button's id is : "+clickedID);
 		expenseID = clickedID;
 		}
+		
+//++++++++++++++++++++++This will happen on click event of a add new expense button++++  
+viewExpense = function(clickedID){
+	console.log("The clicked view expense button's id is : "+clickedID);
+	viewExpenseID = clickedID;
+	}
 //++++++++++++++++++++++++++OnAUthStateChanges on home page++++++++++++++++++++++++++++++++++++++++++++	
 	
 	firebase.auth().onAuthStateChanged(firebaseUser =>{
@@ -166,10 +179,10 @@ var provider = new firebase.auth.GoogleAuthProvider();
 					console.log("retrieved budget key is : "+retrievedBudgetKey);
 					
 					
-					//+++++++++testing expenses under a particular budget
+		/*			//+++++++++testing expenses under a particular budget
 					
 										numOfExpenses = snapshotBudget.child("Expenses").numChildren();	
-										console.log("The number of children replies has is : "+numOfExpenses);	
+										console.log("The number of expenses this budget has is : "+numOfExpenses);	
 									
 										expensesData = snapshotBudget.child("Expenses");
 										if(expensesData.exists()){
@@ -195,10 +208,47 @@ var provider = new firebase.auth.GoogleAuthProvider();
 											console.log(retrievedExpenses);	
 											console.log(htmlStr);
 										
-										}
-					//++++++++++testing ends for expenses under a particular budget
+													}
+								//++++++++++testing ends for expenses under a particular budget					*/
 					
-					$("#budgetList").append("<div class='row'><div class='column'><div class='card'><h3>"+retrievedBudgetData.BudgetTitle+"</h3><h5 class='price'>Budget Amount : <i class='fa fa-inr' aria-hidden='true'></i>"+retrievedBudgetData.BudgetAmount+"</h5><h5>Expense Amount : <i class='fa fa-inr' aria-hidden='true'></i>5000</h5><h5>Balance Amount : <i class='fa fa-inr' aria-hidden='true'></i>2000</h5><h5>Budget Date : "+retrievedBudgetData.BudgetTimestamp+"</h5><h5><button class='btn btn-info'>View Expense History</button></h5><h4><button id="+retrievedBudgetKey+" class='btn btn-primary' data-toggle='modal' data-target='#addExpenseModal' onClick='storeExpense(this.id)'>Add New Expense</button></h5></div></div></div>");
+					
+					
+//+++++++++++++++++++++++++++++++++++++++++testing expenses under a particular budget++++++++++++++++++++++++++++++++++++++++++++++++
+					
+										numOfExpenses = snapshotBudget.child("Expenses").numChildren();	
+										console.log("The number of expenses this budget has is : "+numOfExpenses);	
+									
+										expensesData = snapshotBudget.child("Expenses/");
+										if(expensesData.exists()){
+											noExpenseInfo.style.display = "none";
+											var storeExpensesArray = [];
+
+											
+										expensesData.forEach(function(snapshotExpense) {
+											retrievedExpensekey = snapshotExpense.key;
+											retrievedExpenseData = snapshotExpense.val();
+											console.log("the key from retrievedExpensekey is " + retrievedExpensekey);
+											console.log("the expense Title from retrievedExpenseData is " + retrievedExpenseData.ExpenseTitle);
+										
+											storeExpensesArray.push([retrievedExpenseData.ExpenseTitle, retrievedExpenseData.ExpenseAmount, retrievedExpenseData.ExpenseTimestamp]);
+											
+$("#expenseList").append("<div class='row'><div class='column'><div class='card'><h3>"+retrievedExpenseData.ExpenseTitle+"</h3><h5 class='price'>Expense Amount : <i class='fa fa-inr' aria-hidden='true'></i>"+retrievedExpenseData.ExpenseAmount+"</h5><h5>Expense Date : "+retrievedExpenseData.ExpenseTimestamp+"</h5><h5><button class='btn btn-warning'>Edit This Expense</button></h5><h5><button class='btn btn-danger'>Delete This Expense</button></h5></div></div></div>");
+											
+																				 
+										 });
+										console.log(storeExpensesArray);
+								/*			for(var i=0;i<storeExpensesArray.length;i++){
+												$("#expenseList").append("<div class='row'><div class='column'><div class='card'><h3>"+storeExpensesArray[i][0]+"</h3><h5 class='price'>Expense Amount : <i class='fa fa-inr' aria-hidden='true'></i>"+storeExpensesArray[i][1]+"</h5><h5>Expense Date : "+storeExpensesArray[i][2]+"</h5><h5><button class='btn btn-warning'>Edit This Expense</button></h5><h5><button class='btn btn-danger'>Delete This Expense</button></h5></div></div></div>"); 
+											}    */ 
+											
+											
+										
+										}
+//+++++++++++++++++++++++++++++++++++++++testing ends for expenses under a particular budget++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+					noBudgetInfo.style.display = "none";
+					$("#budgetList").append("<div class='row'><div class='column'><div class='card'><h3>"+retrievedBudgetData.BudgetTitle+"</h3><h5 class='price'>Budget Amount : <i class='fa fa-inr' aria-hidden='true'></i>"+retrievedBudgetData.BudgetAmount+"</h5><h5>Expense Amount : <i class='fa fa-inr' aria-hidden='true'></i>5000</h5><h5>Balance Amount : <i class='fa fa-inr' aria-hidden='true'></i>2000</h5><h5>Budget Date : "+retrievedBudgetData.BudgetTimestamp+"</h5><h5><button id="+retrievedBudgetKey+" class='btn btn-info' data-toggle='modal' data-target='#viewExpenseModal' onClick='viewExpense(this.id)'>View Expense History</button></h5><h5><button id="+retrievedBudgetKey+" class='btn btn-primary' data-toggle='modal' data-target='#addExpenseModal' onClick='storeExpense(this.id)'>Add New Expense</button></h5></div></div></div>");
 					});
 					
 			//---------------------------------------		

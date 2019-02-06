@@ -109,7 +109,7 @@ color: red;
 	  
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Adding New Budget : </h4>
+          <h4 class="modal-title">Adding New Budget</h4>
         </div>
 		
         <div class="modal-body">
@@ -143,7 +143,7 @@ color: red;
 	  
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">How to use Budget Manager App : </h4>
+          <h4 class="modal-title">Using Budget Manager App</h4>
         </div>
 		
         <div class="modal-body">
@@ -181,7 +181,7 @@ color: red;
 	  
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Adding New Expense : </h4>
+          <h4 class="modal-title">Adding New Expense</h4>
         </div>
 		
         <div class="modal-body">
@@ -206,7 +206,36 @@ color: red;
       
     </div>
   </div>
-  
+  	<!-- +++++++++++++++++View Expense Modal+++++++++++++++++ -->
+<div class="modal fade" id="viewExpenseModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+	  
+        <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">&times;</button>
+		<h4 class="modal-title">Expense Summary</h4>
+		
+          
+        </div>
+		
+        <div class="modal-body">
+		<div id="expenseList">
+		<h5 id="noExpenseInfo">You haven't added an expense yet !!</h5>
+		</div>
+		</div>
+		
+        <div class="modal-footer">
+			<button id="cancelExpenseButton" class="btn btn-default" data-dismiss="modal">Exit</button>
+        
+		  
+        </div> 
+		
+      </div>
+      
+    </div>
+  </div>
 <!-- +++++++++++++++++Profile Card+++++++++++++++++-->	
 <div id="userProfile" class="container">
 <div class="card row">
@@ -261,7 +290,7 @@ color: red;
 
 <div class="container" id="budgetList">
 		<h2><b>Budget Summary</b></h2>
-		
+		<h5 id="noBudgetInfo">You haven't added a budget yet !!</h5>
 		
 		
 	</div>
