@@ -1,7 +1,7 @@
 :root{
     --text-color : #fff;
-    --background-color : #000;
-    --default-font-family: 'Cinzel', serif;
+    --background-color: rgba(0,0,0,1);
+    --default-font-family: "Montserrat", "Cinzel", serif;
 }
 
 
@@ -35,8 +35,9 @@ main{
        width: 100px;
        height: 100px;
        border-radius: 50%;
-       border: 1px solid #fff;
+       border: 2px solid #fff;
        font-size: 1.5em;
+       outline: none;
    }
 
    .fa-google{
@@ -82,8 +83,9 @@ main{
            width: 100px;
            height: 100px;
            border-radius: 50%;
-           border: 1px solid #fff;
+           border: 2px solid #fff;
            font-size: 1.5em;
+           outline: none;
        }
     
        .fa-google{

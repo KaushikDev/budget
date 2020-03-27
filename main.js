@@ -243,7 +243,7 @@ function retrieveBudgets(){
         retrievedBudgetData.BudgetValue +
         "</h5><h5 class='card-fields'>Created On : " +
         retrievedBudgetData.BudgetTimestamp +
-        "</h5><div class='budget-card-buttons-div'><button class='expense-card-buttons' id=" +
+        "</h5><div class='budget-card-buttons-div'><button class='budget-card-buttons' id=" +
         retrievedBudgetKey +
         " onClick='deleteBudget(this.id)'><i class='far fa-trash-alt'></i></button><button class='budget-card-buttons' id=" +
         retrievedBudgetKey +
@@ -264,7 +264,7 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
 
     //Updating User Info
     USER_IMAGE.src = userImageUrl;
-    USER_NAME.innerHTML = "Welcome, " + userName;
+    USER_NAME.innerHTML = "Hi, " + userName;
 
 
     retrieveBudgets();
